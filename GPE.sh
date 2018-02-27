@@ -1,6 +1,7 @@
 #!/bin/bash
 # /sys/class/drm/card0/device/hwmon/hwmon1/pwm1 => setting gpu rpm
-# /sys/class/drm/card0/device/power_dpm_force_performance_level => auto for office usage // high for gaming ***WARNING*** High needs pwm1=min65 if not gaming
+# /sys/class/drm/card0/device/power_dpm_force_performance_level => auto for office usage 
+#                                                               => high for gaming *WARNING* High needs pwm1=min65 if no game is running
 #where do i get the gpu temp from to make up a "fan curve"?
 #start when steam starts up => performance high, rpm=65
 #steam closes => performance auto, rpm=35
