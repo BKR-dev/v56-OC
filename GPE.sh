@@ -42,5 +42,8 @@ case $1 in
 		echo "-m --memory 	Read or Set VRAM clock";
 		echo "-o --office 	Setting Office-Use Profile";
 		echo "-g --game		Setting Gaming Profile";
-		echo "--mining		Setting Mining Profile";
+		echo "--mining		Setting Mining Profile";;
+		*)
+		echo "Unknown Command";
+		echo "./GPE.sh -h";;
 esac
