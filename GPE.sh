@@ -23,17 +23,24 @@ gpu_clock=$vga_device/pp_sclk_od
 vram_clock=$vga_device/pp_mclk_od
 
 case $1 in
-		game)
+		-g|--game)
 		echo "***ENABLING HIGH PERFORMANCE***";
 		echo "high" > $perf_level;
 		echo "130" > $pwm;
 		echo "GPU-FAN-RPM SET TO 50% POWER";;
-		mining)
+		---mining)
 		echo "***WARNING*** TOTAL PERFORMANCE!";
 		echo "high" > $perf_level;
 		echo "200" > $pwm;;
-		office)
+		-o|--office)
 		echo "***EASY OFFICE USAGE***";
 		echo "auto" > $perf_level;
 		echo "50" > $pwm;;
+		-h|--help)
+		echo "Enhance GPU Performance for YOUR needs";
+		echo "-c --core 	Read or Set VCORE clock";
+		echo "-m --memory 	Read or Set VRAM clock";
+		echo "-o --office 	Setting Office-Use Profile";
+		echo "-g --game		Setting Gaming Profile";
+		echo "--mining		Setting Mining Profile";
 esac
