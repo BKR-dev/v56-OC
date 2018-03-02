@@ -16,5 +16,11 @@
 #
 #
 #
+vga_device=/sys/class/drm/card0/device/
+pwm=$vga_device/hwmon/hwmon1/pwm1
+perf_level=$vga_device/power_dpm_force_performance_level
 
-
+case $1 in
+		game)
+		echo "***ENABLING HIGH PERFORMANCE***"
+		echo "high" > $perf_level"

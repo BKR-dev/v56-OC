@@ -37,3 +37,5 @@ eb 17:50 numa_node
 /sys/class/drm/card0/device/pp_sclk_od => GPU clock seems to be a sort of multiplier CAUTION!!!
 
 /sys/class/drm/card0/device/pp_mclk_od => MEM clock seems to be multiplier CAUTION!!!!
+
+test
