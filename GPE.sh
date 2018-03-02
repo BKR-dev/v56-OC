@@ -19,8 +19,21 @@
 vga_device=/sys/class/drm/card0/device/
 pwm=$vga_device/hwmon/hwmon1/pwm1
 perf_level=$vga_device/power_dpm_force_performance_level
+gpu_clock=$vga_device/pp_sclk_od
+vram_clock=$vga_device/pp_mclk_od
 
 case $1 in
 		game)
-		echo "***ENABLING HIGH PERFORMANCE***"
-		echo "high" > $perf_level"
+		echo "***ENABLING HIGH PERFORMANCE***";
+		echo "high" > $perf_level;
+		echo "130" > $pwm;
+		echo "GPU-FAN-RPM SET TO 50% POWER";;
+		mining)
+		echo "***WARNING*** TOTAL PERFORMANCE!";
+		echo "high" > $perf_level;
+		echo "200" > $pwm;;
+		office)
+		echo "***EASY OFFICE USAGE***";
+		echo "auto" > $perf_level;
+		echo "50" > $pwm;;
+esac
