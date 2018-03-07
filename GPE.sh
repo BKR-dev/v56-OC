@@ -16,11 +16,19 @@
 #
 #
 #
-vga_device=/sys/class/drm/card0/device/
+vga_device=/sys/class/drm/card0/device
 pwm=$vga_device/hwmon/hwmon1/pwm1
 perf_level=$vga_device/power_dpm_force_performance_level
 gpu_clock=$vga_device/pp_sclk_od
 vram_clock=$vga_device/pp_mclk_od
+current_cpu_clock=$(cat $gpu_clock)
+amdgpu_info=$(cat /sys/kernel/debug/dri/0/amdgpu_pm_info | tail -15 | head -12)	
+
+print_monitoring () {
+echo "$amdpgu_info";
+sleep 0.5;
+}
+
 
 case $1 in
 		-g|--game)
@@ -43,7 +51,20 @@ case $1 in
 		echo "-o --office 	Setting Office-Use Profile";
 		echo "-g --game		Setting Gaming Profile";
 		echo "--mining		Setting Mining Profile";;
-		*)
-		echo "Unknown Command";
-		echo "./GPE.sh -h";;
+		-c|--core)
+		echo "***CAUTION! SETTING NEW CLOCK PARAMETER***";
+		echo "$2" > $gpu_clock;
+		echo "CPU CORE CLOCK IS NOW AT "$current_gpu_clock"";;
+		--monitoring)
+		while true; do
+		print_monitoring;;
+                #*)
+                #echo "Unknown Command";
+                #echo "./GPE.sh -h";;
+
+done
+
 esac
+
+
+
