@@ -1,19 +1,8 @@
 #!/bin/bash
-# /sys/class/drm/card0/device/hwmon/hwmon1/pwm1 => setting gpu rpm
-# /sys/class/drm/card0/device/power_dpm_force_performance_level => auto for office usage 
-#                                                               => high for gaming *WARNING* High needs pwm1=min65 if no game is running
-#where do i get the gpu temp from to make up a "fan curve"?
-#start when steam starts up => performance high, rpm=65
-#steam closes => performance auto, rpm=35
 #
 #[root@vortex-nether booker-x9]# ls /sys/class/drm/card0/device/hwmon/hwmon1/
 #device      name   pwm1         pwm1_max  subsystem   temp1_crit_hyst  uevent
 #fan1_input  power  pwm1_enable  pwm1_min  temp1_crit  temp1_input
-#
-#
-#
-#
-#
 #
 #
 vga_device=/sys/class/drm/card0/device
@@ -22,15 +11,16 @@ perf_level=$vga_device/power_dpm_force_performance_level
 gpu_clock=$vga_device/pp_sclk_od
 vram_clock=$vga_device/pp_mclk_od
 current_cpu_clock=$(cat $gpu_clock)
-amdgpu_info=$(cat /sys/kernel/debug/dri/0/amdgpu_pm_info | tail -15 | head -12)	
+#amdgpu_info=$(cat /sys/kernel/debug/dri/0/amdgpu_pm_info | tail -15 | head -12)	
 
 print_monitoring () {
-echo "$amdpgu_info";
+echo "$(cat /sys/kernel/debug/dri/0/amdgpu_pm_info | tail -15 | head -12)";
 sleep 0.5;
-}
+};
 
 
 case $1 in
+
 		-g|--game)
 		echo "***ENABLING HIGH PERFORMANCE***";
 		echo "high" > $perf_level;
@@ -50,17 +40,14 @@ case $1 in
 		echo "-m --memory 	Read or Set VRAM clock";
 		echo "-o --office 	Setting Office-Use Profile";
 		echo "-g --game		Setting Gaming Profile";
-		echo "--mining		Setting Mining Profile";;
+		echo "--mining		Setting Mining Profile";
+		echo "--monitoring	Monitoring GPU Infos";;
 		-c|--core)
 		echo "***CAUTION! SETTING NEW CLOCK PARAMETER***";
 		echo "$2" > $gpu_clock;
 		echo "CPU CORE CLOCK IS NOW AT "$current_gpu_clock"";;
-		--monitoring)
-		while true; do
-		print_monitoring;;
-                #*)
-                #echo "Unknown Command";
-                #echo "./GPE.sh -h";;
+                --monitoring)
+                while true; do print_monitoring;
 
 done
 
