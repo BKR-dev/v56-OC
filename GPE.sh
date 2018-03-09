@@ -63,10 +63,11 @@ tput sgr0
 tput cup $( tput lines ) 0
 };
 
-message_txtbox_mid () {
+set_gpu_core_clock () {
 cols=$( tput cols )
 rows=$( tput lines )
-welco_message="WELCOME TO THE GPE-PROJECT"
+input=8
+welco_message="Setting GPU Core CLock per multiplier 0 - 8"
 message=$welco_message
 input_length=${#message}
 half_input_length=$(( $input_length / 2 ))
@@ -78,6 +79,10 @@ tput bold
 echo $message
 tput sgr0
 tput cup $( tput lines ) 0
+if [[ ! "$2" < "$input" || "$2" == "$input" ]]
+	then echo "Clock Multiplier_Value has to be 0 - 8" && set $2 '8';
+	fi
+
 };
 
 message_txtbox_mid () {
@@ -131,8 +136,6 @@ case $1 in
 		echo "high" > $perf_level;
 		echo "200" > $pwm;;
 		-o|--office)
-		#welco_message="***SETTING OFFICE USAGE PATTERN***";
-		#message_txtbox_mid($welco_message);
 		echo "auto" > $perf_level;
 		echo "50" > $pwm;;
 		-h|--help)
