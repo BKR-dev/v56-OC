@@ -85,10 +85,10 @@ if [[ ! "$2" < "$input" || "$2" == "$input" ]]
 
 };
 
-message_txtbox_mid () {
+show_help () {
 cols=$( tput cols )
 rows=$( tput lines )
-welco_message="WELCOME TO THE GPE-PROJECT"
+welco_message="WELCOME TO THE GPE-PROJECT\nLET ME HELP YOU WITH THIS"
 message=$welco_message
 input_length=${#message}
 half_input_length=$(( $input_length / 2 ))
