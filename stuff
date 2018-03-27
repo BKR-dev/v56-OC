@@ -1,0 +1,21 @@
+for i in {0..10..1};
+do #echo -ne "$i"'\c'
+cols=$( tput cols )
+rows=$( tput lines )
+welco_message="***SETTING GAMING PROFILE***$i"
+message=$welco_message
+input_length=${#message}
+half_input_length=$(( $input_length / 2 ))
+middle_row=$(( $rows / 2 ))
+middle_col=$(( ($cols / 2) - $half_input_length ))
+tput clear
+tput cup $middle_row $middle_col
+tput bold
+echo $message
+tput sgr0
+tput cup $( tput lines ) 0
+
+sleep 1
+clear
+done
+
